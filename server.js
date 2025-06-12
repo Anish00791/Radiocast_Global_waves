@@ -60,7 +60,7 @@ function getCache(type, key) {
 const app = express();
 // Allow only the Vercel frontend domain for CORS
 app.use(cors({
-  origin: 'https://your-frontend.vercel.app' // TODO: Replace with your actual Vercel domain
+  origin: 'https://radiocast-global-waves.vercel.app/' // TODO: Replace with your actual Vercel domain
 }));
 
 // Rate limiter configuration
