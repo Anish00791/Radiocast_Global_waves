@@ -1,6 +1,6 @@
 import { RadioStation } from './types';
 
-const API_BASE_URL = 'http://localhost:3001/api/radio';
+const API_BASE_URL = 'https://radiocast-global-waves.onrender.com';
 
 interface RadioBrowserStation {
   stationuuid: string;
