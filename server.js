@@ -59,12 +59,20 @@ function getCache(type, key) {
 
 const app = express();
 // Allow only the Vercel frontend domain for CORS
+const allowedOrigins = [
+  'https://radiocast-global-waves.vercel.app',
+  'http://localhost:8080', // For local frontend dev
+  'http://127.0.0.1:8080' // For local frontend dev
+];
+
 app.use(cors({
-  origin: [
-    'https://radiocast-global-waves.vercel.app',
-    'http://localhost:8080', // For local development
-    'http://127.0.0.1:8080' // For local development
-  ]
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
 
 // Rate limiter configuration
