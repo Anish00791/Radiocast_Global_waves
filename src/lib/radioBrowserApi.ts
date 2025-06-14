@@ -1,6 +1,6 @@
 import { RadioStation } from './types';
 
-const API_BASE_URL = 'https://radiocast-global-waves.onrender.com/api/radio';
+const API_BASE_URL = '/api/radio';
 
 interface RadioBrowserStation {
   stationuuid: string;
@@ -200,4 +200,4 @@ export async function getStationsByCountry(country: string, limit = 20): Promise
     console.error(`Error fetching stations for country ${country}:`, error);
     return [];
   }
-} 
+}
