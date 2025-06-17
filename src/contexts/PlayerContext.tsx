@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useRef, useCallback, useEffect, ReactNode } from 'react';
 import { RadioStation, PlayerState } from '@/lib/types';
 import Hls from 'hls.js';
+import { API_BASE_URL } from '@/lib/radioBrowserApi';
 
 interface PlayerContextType {
   currentStation: RadioStation | null;
@@ -98,8 +99,10 @@ export const PlayerProvider = ({ children }: { children: ReactNode }): JSX.Eleme
     }
     const audio = audioRef.current;
 
+    // Always use the backend base URL for proxy requests
+    const backendProxyBase = API_BASE_URL.replace(/\/api\/radio$/, '');
     const encodedUrl = encodeURIComponent(currentStation.url);
-    const proxyUrl = `/proxy?url=${encodedUrl}`;
+    const proxyUrl = `${backendProxyBase}/proxy?url=${encodedUrl}`;
 
     // If HLS, use hls.js
     if (currentStation.url.endsWith('.m3u8') && Hls.isSupported()) {
