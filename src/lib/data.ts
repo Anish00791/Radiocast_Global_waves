@@ -8,8 +8,8 @@ export const radioStations: RadioStation[] = [
     country: "United Kingdom",
     language: "English",
     genre: ["Pop", "Top 40", "Chart"],
-    url: "http://as-hls-ww-live.akamaized.net/pool_01505109/live/ww/bbc_radio_one/bbc_radio_one.isml/bbc_radio_one-audio=96000.norewind.m3u8",
-    favicon: "https://cdn-profiles.tunein.com/s24939/images/logod.jpg",
+    url: "http://a.files.bbci.co.uk/ms6/live/3441A116-B12E-4D2F-ACA8-C1984642FA4B/audio/simulcast/hls/nonuk/pc_hd_abr_v2/ak/bbc_radio_one.m3u8",
+    favicon: "	https://cdn-radiotime-logos.tunein.com/s24939q.png",
     mood: ["Energetic", "Popular"],
     featured: true,
     coordinates: [51.5074, -0.1278], // London

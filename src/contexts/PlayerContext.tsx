@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useRef, useCallback, useEffect, ReactNode } from 'react';
 import { RadioStation, PlayerState } from '@/lib/types';
+import Hls from 'hls.js';
 
 interface PlayerContextType {
   currentStation: RadioStation | null;
@@ -30,6 +31,7 @@ export const PlayerProvider = ({ children }: { children: ReactNode }): JSX.Eleme
     return stored ? JSON.parse(stored) : [];
   });
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const hlsRef = useRef<Hls | null>(null);
 
   // Derived state
   const isPlaying = playerState === 'playing';
@@ -95,16 +97,46 @@ export const PlayerProvider = ({ children }: { children: ReactNode }): JSX.Eleme
       audioRef.current = new Audio();
     }
     const audio = audioRef.current;
-    audio.src = currentStation.url;
+
+    const encodedUrl = encodeURIComponent(currentStation.url);
+    const proxyUrl = `/proxy?url=${encodedUrl}`;
+
+    // If HLS, use hls.js
+    if (currentStation.url.endsWith('.m3u8') && Hls.isSupported()) {
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+      }
+      const hls = new Hls();
+      hlsRef.current = hls;
+      hls.loadSource(proxyUrl);
+      hls.attachMedia(audio);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        audio.play().catch(() => setPlayerState('error'));
+      });
+      hls.on(Hls.Events.ERROR, () => setPlayerState('error'));
+    } else {
+      // For non-HLS or Safari
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
+      audio.src = proxyUrl;
+      audio.load();
+      audio.play().catch(() => setPlayerState('error'));
+    }
+
     audio.volume = volume;
     audio.autoplay = true;
     audio.onplaying = () => setPlayerState('playing');
     audio.onpause = () => setPlayerState('paused');
     audio.onerror = () => setPlayerState('error');
     audio.onwaiting = () => setPlayerState('loading');
-    audio.load();
-    audio.play().catch(() => setPlayerState('error'));
+
     return () => {
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
       audio.pause();
       audio.src = '';
     };
