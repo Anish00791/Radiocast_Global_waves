@@ -8,7 +8,7 @@ export const radioStations: RadioStation[] = [
     country: "United Kingdom",
     language: "English",
     genre: ["Pop", "Top 40", "Chart"],
-    url: "https://stream.live.vc.bbcmedia.co.uk/bbc_radio_one",
+    url: "http://as-hls-ww-live.akamaized.net/pool_01505109/live/ww/bbc_radio_one/bbc_radio_one.isml/bbc_radio_one-audio=96000.norewind.m3u8",
     favicon: "https://cdn-profiles.tunein.com/s24939/images/logod.jpg",
     mood: ["Energetic", "Popular"],
     featured: true,
