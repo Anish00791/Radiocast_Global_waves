@@ -87,7 +87,7 @@ const RadioBrowserExplorer: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-2 sm:px-4">
       <div>
         <h2 className="text-2xl font-bold mb-4">Radio Browser Explorer</h2>
         <p className="text-muted-foreground mb-4">
@@ -96,15 +96,15 @@ const RadioBrowserExplorer: React.FC = () => {
       </div>
       
       {/* Search form */}
-      <form onSubmit={handleSearch} className="flex gap-2">
+      <form onSubmit={handleSearch} className="flex flex-col gap-2 sm:flex-row">
         <Input
           type="text"
           placeholder="Search for stations..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1"
+          className="flex-1 min-w-0"
         />
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
           {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
           Search
         </Button>
@@ -113,7 +113,7 @@ const RadioBrowserExplorer: React.FC = () => {
       {/* Genre filters */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold">Popular Genres</h3>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
           <Button 
             variant={activeGenre === null ? "default" : "outline"}
             size="sm"
@@ -156,7 +156,7 @@ const RadioBrowserExplorer: React.FC = () => {
         </div>
       )}
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {stations.map((station) => (
           <RadioCard key={station.id} station={station} />
         ))}
