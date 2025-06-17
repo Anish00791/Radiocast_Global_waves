@@ -8,7 +8,7 @@ export const radioStations: RadioStation[] = [
     country: "United Kingdom",
     language: "English",
     genre: ["Pop", "Top 40", "Chart"],
-    url: "http://a.files.bbci.co.uk/ms6/live/3441A116-B12E-4D2F-ACA8-C1984642FA4B/audio/simulcast/hls/nonuk/pc_hd_abr_v2/ak/bbc_radio_one.m3u8",
+    url: "https://a.files.bbci.co.uk/ms6/live/3441A116-B12E-4D2F-ACA8-C1984642FA4B/audio/simulcast/hls/nonuk/pc_hd_abr_v2/ak/bbc_radio_one.m3u8",
     favicon: "	https://cdn-radiotime-logos.tunein.com/s24939q.png",
     mood: ["Energetic", "Popular"],
     featured: true,
