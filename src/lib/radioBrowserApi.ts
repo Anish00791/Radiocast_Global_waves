@@ -10,8 +10,13 @@ const DEFAULT_BASE =
     ? `${window.location.origin}/api/radio`
     : "https://radiocast-global-waves.onrender.com/api/radio";
 
+// Use VITE_API_BASE_URL in production, but use relative paths in development for Vite proxy
+const isDev = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+
 export const API_BASE_URL =
-  (import.meta.env.VITE_API_BASE_URL as string | undefined) || DEFAULT_BASE;
+  isDev
+    ? '/api/radio'
+    : (import.meta.env.VITE_API_BASE_URL as string | undefined) || DEFAULT_BASE;
 
 interface RadioBrowserStation {
   stationuuid: string;

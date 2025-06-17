@@ -99,8 +99,11 @@ export const PlayerProvider = ({ children }: { children: ReactNode }): JSX.Eleme
     }
     const audio = audioRef.current;
 
-    // Always use the backend base URL for proxy requests
-    const backendProxyBase = API_BASE_URL.replace(/\/api\/radio$/, '');
+    // Use relative /proxy in dev, backend base in production
+    const isDev = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+    const backendProxyBase = isDev
+      ? ''
+      : API_BASE_URL.replace(/\/api\/radio$/, '');
     const encodedUrl = encodeURIComponent(currentStation.url);
     const proxyUrl = `${backendProxyBase}/proxy?url=${encodedUrl}`;
 

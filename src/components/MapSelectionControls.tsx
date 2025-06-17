@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { MapPin, LocateFixed, X } from 'lucide-react';
