@@ -1,6 +1,17 @@
 import { RadioStation } from './types';
 
-export const API_BASE_URL = 'https://radiocast-global-waves.onrender.com/api/radio';
+// Resolve the backend base URL in a flexible way:
+// 1. Allow override via VITE_API_BASE_URL env variable (recommended for production).
+// 2. Fall back to the current origin (useful when the backend is hosted on the same domain, e.g. Vercel Functions).
+// 3. Final fallback to the Render instance – keeps local dev working even without env vars.
+
+const DEFAULT_BASE =
+  typeof window !== "undefined"
+    ? `${window.location.origin}/api/radio`
+    : "https://radiocast-global-waves.onrender.com/api/radio";
+
+export const API_BASE_URL =
+  (import.meta.env.VITE_API_BASE_URL as string | undefined) || DEFAULT_BASE;
 
 interface RadioBrowserStation {
   stationuuid: string;
